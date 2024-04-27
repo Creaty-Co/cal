@@ -39,6 +39,7 @@ export async function getServerSession(options: {
   const token = await getToken({
     req,
     secret,
+    secureCookie: false,
   });
 
   if (!token || !token.email || !token.sub) {
