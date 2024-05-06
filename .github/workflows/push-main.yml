@@ -1,0 +1,13 @@
+name: "Push: main"
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    uses: ./.github/workflows/call-build.yml
+    with:
+      tag: ${{ github.sha }}
+    secrets: inherit

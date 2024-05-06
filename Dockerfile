@@ -30,8 +30,6 @@ RUN yarn config set httpTimeout 1200000 && \
 
 RUN yarn turbo run build --filter=@calcom/web
 
-# RUN yarn plugin import workspace-tools && \
-#     yarn workspaces focus --all --production
 RUN rm -rf node_modules/.cache .yarn/cache apps/web/.next/cache
 
 FROM node:18 as builder-two
