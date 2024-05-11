@@ -40,5 +40,5 @@ jobs:
           tags: |
             ghcr.io/${{ env.REPOSITORY }}/platform:latest
             ghcr.io/${{ env.REPOSITORY }}/platform:${{ inputs.tag }}
-          cache-from: type=registry,ref=ghcr.io/${{ env.REPOSITORY }}/platform:latest
-          cache-to: type=registry,mode=max,ref=ghcr.io/${{ env.REPOSITORY }}/platform:latest
+          cache-from: type=registry,ref=ghcr.io/${{ env.REPOSITORY }}/platform:cache-latest,mode=max
+          cache-to: type=registry,mode=max,ref=ghcr.io/${{ env.REPOSITORY }}/platform:cache-latest,mode=max
