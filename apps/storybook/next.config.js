@@ -5,6 +5,7 @@ plugins.push(withBundleAnalyzer({ enabled: process.env.ANALYZE === "true" }));
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
+  basePath: '/platform',
   reactStrictMode: true,
   images: {
     domains: ["www.datocms-assets.com"],

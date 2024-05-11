@@ -3,6 +3,7 @@ const { withSentryConfig } = require("@sentry/nextjs");
 
 const plugins = [withAxiom];
 const nextConfig = {
+  basePath: '/platform',
   transpilePackages: [
     "@calcom/app-store",
     "@calcom/core",

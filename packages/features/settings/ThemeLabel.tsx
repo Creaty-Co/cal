@@ -27,7 +27,7 @@ export default function ThemeLabel(props: ThemeLabelProps) {
         <img
           aria-hidden="true"
           className="cover w-full rounded-lg"
-          src={`/theme-${variant}.svg`}
+          src={`/platform/theme-${variant}.svg`}
           alt={`theme ${variant}`}
         />
       </div>

@@ -4,7 +4,7 @@ export function getAppAssetFullPath(assetPath: string, metadata: Pick<App, "dirN
   const appDirName = `${metadata.isTemplate ? "templates/" : ""}${metadata.dirName}`;
   let assetFullPath = assetPath;
   if (!assetPath.startsWith("/app-store/") && !/^https?/.test(assetPath)) {
-    assetFullPath = `/app-store/${appDirName}/${assetPath}`;
+    assetFullPath = `/platform/app-store/${appDirName}/${assetPath}`;
   }
   return assetFullPath;
 }

@@ -177,7 +177,7 @@ const BookerLayoutFields = ({
             <label>
               <img
                 className="mb-3 w-full max-w-none cursor-pointer"
-                src={`/bookerlayout_${layout}${isDark ? "_dark" : ""}.svg`}
+                src={`/platform/bookerlayout_${layout}${isDark ? "_dark" : ""}.svg`}
                 alt="Layout preview"
               />
               <CheckboxField

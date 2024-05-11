@@ -25,7 +25,7 @@ const middleware = async (req: NextRequest): Promise<NextResponse<unknown>> => {
 
   requestHeaders.set("x-url", req.url);
 
-  if (!url.pathname.startsWith("/api")) {
+  if (!url.pathname.startsWith("/platform/api")) {
     //
     // NOTE: When tRPC hits an error a 500 is returned, when this is received
     //       by the application the user is automatically redirected to /auth/login.
@@ -36,7 +36,7 @@ const middleware = async (req: NextRequest): Promise<NextResponse<unknown>> => {
     const isInMaintenanceMode = await safeGet<boolean>("isInMaintenanceMode");
     // If is in maintenance mode, point the url pathname to the maintenance page
     if (isInMaintenanceMode) {
-      req.nextUrl.pathname = `/maintenance`;
+      req.nextUrl.pathname = `/platform/maintenance`;
       return NextResponse.rewrite(req.nextUrl);
     }
   }
@@ -58,11 +58,11 @@ const middleware = async (req: NextRequest): Promise<NextResponse<unknown>> => {
     return res;
   }
 
-  if (url.pathname.startsWith("/api/trpc/")) {
+  if (url.pathname.startsWith("/platform/api/trpc/")) {
     requestHeaders.set("x-cal-timezone", req.headers.get("x-vercel-ip-timezone") ?? "");
   }
 
-  if (url.pathname.startsWith("/api/auth/signup")) {
+  if (url.pathname.startsWith("/platform/api/auth/signup")) {
     const isSignupDisabled = await safeGet<boolean>("isSignupDisabled");
     // If is in maintenance mode, point the url pathname to the maintenance page
     if (isSignupDisabled) {
@@ -70,12 +70,12 @@ const middleware = async (req: NextRequest): Promise<NextResponse<unknown>> => {
     }
   }
 
-  if (url.pathname.startsWith("/auth/login") || url.pathname.startsWith("/login")) {
+  if (url.pathname.startsWith("/platform/auth/login") || url.pathname.startsWith("/platform/login")) {
     // Use this header to actually enforce CSP, otherwise it is running in Report Only mode on all pages.
     requestHeaders.set("x-csp-enforce", "true");
   }
 
-  if (url.pathname.startsWith("/future/apps/installed")) {
+  if (url.pathname.startsWith("/platform/future/apps/installed")) {
     const returnTo = req.cookies.get("return-to")?.value;
     if (returnTo !== undefined) {
       requestHeaders.set("Set-Cookie", "return-to=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT");
@@ -92,7 +92,7 @@ const middleware = async (req: NextRequest): Promise<NextResponse<unknown>> => {
     }
   }
 
-  if (url.pathname.startsWith("/future/auth/logout")) {
+  if (url.pathname.startsWith("/platform/future/auth/logout")) {
     cookies().delete("next-auth.session-token");
   }
 
@@ -112,8 +112,8 @@ const middleware = async (req: NextRequest): Promise<NextResponse<unknown>> => {
 const routingForms = {
   handle: (url: URL) => {
     // Don't 404 old routing_forms links
-    if (url.pathname.startsWith("/apps/routing_forms")) {
-      url.pathname = url.pathname.replace(/^\/apps\/routing_forms($|\/)/, "/apps/routing-forms/");
+    if (url.pathname.startsWith("/platform/apps/routing_forms")) {
+      url.pathname = url.pathname.replace(/^\/platform\/apps\/routing_forms($|\/)/, "/platform/apps/routing-forms/");
       return NextResponse.rewrite(url);
     }
   },
@@ -123,45 +123,45 @@ export const config = {
   // Next.js Doesn't support spread operator in config matcher, so, we must list all paths explicitly here.
   // https://github.com/vercel/next.js/discussions/42458
   matcher: [
-    "/:path*/embed",
-    "/api/auth/signup",
-    "/api/trpc/:path*",
-    "/login",
-    "/auth/login",
-    "/future/auth/login",
+    "/platform/:path*/embed",
+    "/platform/api/auth/signup",
+    "/platform/api/trpc/:path*",
+    "/platform/login",
+    "/platform/auth/login",
+    "/platform/future/auth/login",
     /**
      * Paths required by routingForms.handle
      */
-    "/apps/routing_forms/:path*",
+    "/platform/apps/routing_forms/:path*",
 
-    "/event-types",
-    "/future/event-types/",
-    "/settings/admin/:path*",
-    "/future/settings/admin/:path*",
-    "/apps/installed/:category/",
-    "/future/apps/installed/:category/",
-    "/apps/:slug/",
-    "/future/apps/:slug/",
-    "/apps/:slug/setup/",
-    "/future/apps/:slug/setup/",
-    "/apps/categories/",
-    "/future/apps/categories/",
-    "/apps/categories/:category/",
-    "/future/apps/categories/:category/",
-    "/workflows/:path*",
-    "/future/workflows/:path*",
-    "/settings/teams/:path*",
-    "/future/settings/teams/:path*",
-    "/getting-started/:step/",
-    "/future/getting-started/:step/",
-    "/apps",
-    "/future/apps",
-    "/bookings/:status/",
-    "/future/bookings/:status/",
-    "/video/:path*",
-    "/future/video/:path*",
-    "/teams",
-    "/future/teams/",
+    "/platform/event-types",
+    "/platform/future/event-types/",
+    "/platform/settings/admin/:path*",
+    "/platform/future/settings/admin/:path*",
+    "/platform/apps/installed/:category/",
+    "/platform/future/apps/installed/:category/",
+    "/platform/apps/:slug/",
+    "/platform/future/apps/:slug/",
+    "/platform/apps/:slug/setup/",
+    "/platform/future/apps/:slug/setup/",
+    "/platform/apps/categories/",
+    "/platform/future/apps/categories/",
+    "/platform/apps/categories/:category/",
+    "/platform/future/apps/categories/:category/",
+    "/platform/workflows/:path*",
+    "/platform/future/workflows/:path*",
+    "/platform/settings/teams/:path*",
+    "/platform/future/settings/teams/:path*",
+    "/platform/getting-started/:step/",
+    "/platform/future/getting-started/:step/",
+    "/platform/apps",
+    "/platform/future/apps",
+    "/platform/bookings/:status/",
+    "/platform/future/bookings/:status/",
+    "/platform/video/:path*",
+    "/platform/future/video/:path*",
+    "/platform/teams",
+    "/platform/future/teams/",
   ],
 };
 

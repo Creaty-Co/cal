@@ -39,7 +39,7 @@ class MyDocument extends Document<Props> {
     const asPath = ctx.asPath || "";
     // Use a dummy URL as default so that URL parsing works for relative URLs as well. We care about searchParams and pathname only
     const parsedUrl = new URL(asPath, "https://dummyurl");
-    const isEmbedSnippetGeneratorPath = parsedUrl.pathname.startsWith("/event-types");
+    const isEmbedSnippetGeneratorPath = parsedUrl.pathname.startsWith("/platform/event-types");
     // FIXME: Revisit this logic to remove embedType query param check completely. Ideally, /embed should always be there at the end of the URL. Test properly and then remove it.
     const isEmbed =
       (parsedUrl.pathname.endsWith("/embed") || parsedUrl.searchParams.get("embedType") !== null) &&
@@ -70,11 +70,11 @@ class MyDocument extends Document<Props> {
               __html: `window.calNewLocale = "${newLocale}";`,
             }}
           />
-          <link rel="apple-touch-icon" sizes="180x180" href="/api/logo?type=apple-touch-icon" />
-          <link rel="icon" type="image/png" sizes="32x32" href="/api/logo?type=favicon-32" />
-          <link rel="icon" type="image/png" sizes="16x16" href="/api/logo?type=favicon-16" />
-          <link rel="manifest" href="/site.webmanifest" />
-          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" />
+          <link rel="apple-touch-icon" sizes="180x180" href="/platform/api/logo?type=apple-touch-icon" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/platform/api/logo?type=favicon-32" />
+          <link rel="icon" type="image/png" sizes="16x16" href="/platform/api/logo?type=favicon-16" />
+          <link rel="manifest" href="/platform/site.webmanifest" />
+          <link rel="mask-icon" href="/platform/safari-pinned-tab.svg" color="#000000" />
           <meta name="msapplication-TileColor" content="#ff0000" />
           <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F9FAFC" />
           <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1F1F1F" />
