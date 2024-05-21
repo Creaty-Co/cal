@@ -70,7 +70,7 @@ export const AdminUser = (props: { onSubmit: () => void; onError: () => void; on
 
   const onSubmit = formMethods.handleSubmit(async (data) => {
     props.onSubmit();
-    const response = await fetch("/api/auth/setup", {
+    const response = await fetch("/platform/api/auth/setup", {
       method: "POST",
       body: JSON.stringify({
         username: data.username.trim(),

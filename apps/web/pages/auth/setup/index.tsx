@@ -117,7 +117,7 @@ export function Setup(props: inferSSRProps<typeof getServerSideProps>) {
             appCategoryNavigationContainer: "max-h-[400px] overflow-y-auto md:p-4",
             verticalTabsItem: "!w-48 md:p-4",
           }}
-          baseURL={`/auth/setup?step=${currentStep}`}
+          baseURL={`/platform/auth/setup?step=${currentStep}`}
           useQueryParam={true}
           onSubmit={() => {
             setIsPending(true);
@@ -133,7 +133,7 @@ export function Setup(props: inferSSRProps<typeof getServerSideProps>) {
       <Meta title={t("setup")} description={t("setup_description")} />
       <main className="bg-subtle flex items-center print:h-full md:h-screen">
         <WizardForm
-          href="/auth/setup"
+          href="/platform/auth/setup"
           steps={steps}
           nextLabel={t("next_step_text")}
           finishLabel={t("finish")}

@@ -6,7 +6,7 @@ type ResponseUsernameApi = {
 };
 
 export async function fetchUsername(username: string, orgSlug: string | null) {
-  const response = await fetch("/api/username", {
+  const response = await fetch("/platform/api/username", {
     credentials: "include",
     method: "POST",
     body: JSON.stringify({
