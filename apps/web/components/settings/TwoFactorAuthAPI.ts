@@ -1,6 +1,6 @@
 const TwoFactorAuthAPI = {
   async setup(password: string) {
-    return fetch("/api/auth/two-factor/totp/setup", {
+    return fetch("/platform/api/auth/two-factor/totp/setup", {
       method: "POST",
       body: JSON.stringify({ password }),
       headers: {
@@ -10,7 +10,7 @@ const TwoFactorAuthAPI = {
   },
 
   async enable(code: string) {
-    return fetch("/api/auth/two-factor/totp/enable", {
+    return fetch("/platform/api/auth/two-factor/totp/enable", {
       method: "POST",
       body: JSON.stringify({ code }),
       headers: {
@@ -20,7 +20,7 @@ const TwoFactorAuthAPI = {
   },
 
   async disable(password: string, code: string, backupCode: string) {
-    return fetch("/api/auth/two-factor/totp/disable", {
+    return fetch("/platform/api/auth/two-factor/totp/disable", {
       method: "POST",
       body: JSON.stringify({ password, code, backupCode }),
       headers: {
