@@ -11,3 +11,9 @@ jobs:
     with:
       tag: ${{ github.sha }}
     secrets: inherit
+  deploy:
+    uses: ./.github/workflows/call-update_version.yml
+    with:
+      version: ${{ github.sha }}
+    secrets: inherit
+    needs: [build]

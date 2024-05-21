@@ -1,0 +1,46 @@
+name: "Call: update version"
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: false
+        default: 'dev'
+      version:
+        type: string
+        required: true
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: string
+        required: false
+        default: 'dev'
+      version:
+        type: string
+        required: true
+
+jobs:
+  update_values:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4.1.3
+        with:
+          repository: creaty-co/creaty-root-chart
+          ssh-key: ${{ secrets.CHART_DEPLOY_KEY }}
+          ref: main
+      - name: Update values.yaml
+        # language="shell script"
+        run: >
+          yq eval
+          '.environments.${{ inputs.environment }}.platform_version="${{ inputs.version }}"'
+          -i values.yaml
+      - name: Commit and push changes
+        # language="shell script"
+        run: |
+          git branch
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "${{ inputs.environment }}: platform_version: ${{ inputs.version }}"
+          git push
