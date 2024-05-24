@@ -1,0 +1,8 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: creaty_platform_nginx_proxy
+    ports:
+      - "4000:80"
+    volumes:
+      - ./infra/nginx.conf:/etc/nginx/nginx.conf
